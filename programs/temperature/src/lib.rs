@@ -17,7 +17,10 @@ pub mod temperature {
     pub fn create_temperature(ctx: Context<CreateTemperature>) -> ProgramResult {
         CreateTemperature::create_temperature(ctx)
     }
-
+    #[access_control(ctx.accounts.validate())]
+    pub fn post(ctx:Context<Post>,new_temperature:u16) ->ProgramResult{
+        Post::process(ctx,new_temperature)
+    }
     ///
     #[access_control(ctx.accounts.validate())]
     pub fn set_pending_pool(ctx: Context<ModifyTemperature>,
